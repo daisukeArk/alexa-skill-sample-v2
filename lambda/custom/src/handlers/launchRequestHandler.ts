@@ -1,16 +1,21 @@
 import * as Alexa from 'ask-sdk-core';
+import { createUtterance } from '../factories/utteranceFactory';
+import { LaunchRequestUtterance as Utterance } from '../utterances/launchRequestUtterance';
 
 export const LaunchRequestHandler: Alexa.RequestHandler = {
   canHandle(handlerInput: Alexa.HandlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput: Alexa.HandlerInput) {
-    const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';
+    const uttranceResult = createUtterance(Utterance).respond();
 
     return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .speak(uttranceResult.speech)
+      .reprompt((uttranceResult.repromptSpeech as string))
+      .withSimpleCard(
+        (uttranceResult.cardTitle as string),
+        (uttranceResult.cardContent as string)
+      )
       .getResponse();
   },
 };
