@@ -4,6 +4,7 @@ Thumbs.db
 
 # Generated files
 dist
+.rpt2_cache
 
 # Logs
 logs
