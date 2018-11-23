@@ -8,7 +8,9 @@ export const HelloWorldIntentHandler: Alexa.RequestHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
   },
   handle(handlerInput: Alexa.HandlerInput) {
-    const uttranceResult = createUtterance(Utterance).respond();
+    const currentHours = (new Date()).getHours();
+
+    const uttranceResult = createUtterance(Utterance).respond(currentHours);
 
     return handlerInput.responseBuilder
       .speak(uttranceResult.speech)
